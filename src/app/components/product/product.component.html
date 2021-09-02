@@ -1,0 +1,11 @@
+<!-- bu seçtiğimiz "table boostrap'den geliyor."-->
+<table class="table"> 
+    <!-- sanki bir döngü varmış gibi c#deki foreach gibi.-->
+    <tr *ngFor="let product of products">
+        <td>{{product.productId}}</td>
+        <td>{{product.productName}}</td>
+        <td>{{product.categoryId}}</td>
+        <td>{{product.unitPrice}}</td>
+    </tr>
+
+</table>

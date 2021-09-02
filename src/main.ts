@@ -7,6 +7,6 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
-
+//burda ben hangi module ile başlayayım diyor. bizde appmodule seçmişiz.
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
