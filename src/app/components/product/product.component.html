@@ -1,5 +1,20 @@
 <!-- bu seçtiğimiz "table boostrap'den geliyor."-->
-<table class="table"> 
+<!-- button'u data yüklenmediyse göster. Yüklendiği anda gösterme."-->
+<button *ngIf="dataLoaded==false" class="btn btn-primary" type="button" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Loading...
+</button>
+<!-- button'u data yüklenmediyse gösteriyoruz ya o anda başlıklar gözükmesin istiyor isek  *ngIf="dataLoaded==true" yazıyoruz."-->
+<table *ngIf="dataLoaded==true" class="table"> 
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ürün Adı</th>
+            <th>Kategori</th>
+            <th>Fiyat</th>
+            <th>Stok Adedi</th>
+        </tr>
+    </thead>
     <!-- sanki bir döngü varmış gibi c#deki foreach gibi.-->
     <tr *ngFor="let product of products">
         <td>{{product.productId}}</td>

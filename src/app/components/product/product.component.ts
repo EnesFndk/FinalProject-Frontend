@@ -2,8 +2,8 @@
 //HttpClient ile backend'e ulaşıyoruz.
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { HttpClient } from '@angular/common/http';
-import { ProductResponceModel } from 'src/app/models/productResponseModel';
+import { ProductService } from 'src/app/services/product.service';
+
 
 @Component({
   selector: 'app-product',
@@ -21,30 +21,28 @@ import { ProductResponceModel } from 'src/app/models/productResponseModel';
 //console.log("Init çalıştı"); kodunu constructor'a da yazsak çalışır ama constructor'ı sürekli kullanmak yanlış. Suistimal etmemek gerekiyor.
 //Yukardaki HttpClient'ı enjecte etmek için constructor'a yazıyoruz.
 //private httpClient:HttpClient = httpclient türünde bir nesne istiyorum diyoruz. :=tür demek
+//***** getProducts içindeki kodları product.service içine yazdık ki ilerde yazacağımız kodlarla birlikte orası çorba olmasın diye orayı yazdıktan sonra enjecte etmek için constructor'a private productService:ProductService yazıyoruz ve angular otomatik onu import ediyor.
 export class ProductComponent implements OnInit {
   products: Product[] = [];
-  apiUrl = 'http://localhost:45495/api/products/getall';
+  dataLoaded = false;
 
-  
-  constructor(private httpClient: HttpClient) {}
+  constructor(private productService:ProductService) {}
 
   //javascript'de normalde void diye birşey yok bunu bize sağlayan typescript.
   //bir fonksiyonun dışındakine ulaşmak istediğimizde this yazıyoruz.
   ngOnInit(): void {
     this.getProducts();
   }
-  //ürünleri getirmek için httpclient.get yazıyoruz.
-  //Sadece apiUrl yazdığımızda kabul etmiyor. This de ekleniyor otomatik. This class'a denk geliyor.
-  //**Burda getproduct() parantez içindekileri this'siz tanımlayabiliriz ama class'dan gelenleri this ile tanımlamak zorunlu.Yoksa kabul etmiyor zaten.
-  //***Gelen data default olarak any geliyor ama biz tip güvenliği için ProductResponseModel'de tanımladığımızdan onu buraya yazıyoruz.
-  //ÖZET = getProducts bir method. httpClient ile istek yapıyoruz. bir get isteği yapıyoruz apiUrl'ye. Gelen data ProductResponseModel tipinde olsun. Subscribe olduğumuz zaman gelen response(apiurl'den gelen ProductResponseModel tipi) için(=>) this.products eşittir response'dan gelen data. 
+  //Subscribe olduğumuz zaman gelen response(product.service.ts'deki apiurl'den gelen ProductResponseModel tipi) için(=>) this.products eşittir response'dan gelen data. 
   //{}=başka kodlar da yazmak için
   //Bana gelen productResponseModel olarak geldiği için eşitlemem gerekiyor. onuda productResponseModel:ProductResponceModel= olarak eşitliyoruz ve içine data,success ve message yazıyoruz.
+  //Subscribe eklediğimizde kodlar asenkron çalışıyor yani şöyle düşün Asenkronda herkes kendi işiyle meşgul kimse bi işi yapmak için başkasının o işi bitirmesini beklemiyor yani 
+  //subsribe dışına yazarsak düzensiz çalışır fakat subsribe içine yazarsak senkronize olarak çalışır sırayla bir düzen içinde.
+  //şimdi dataloaded yukarda false'ken aşağıda neden true, çünkü yüklendiği anda true yapıyorum.
   getProducts() {
-    this.httpClient
-      .get<ProductResponceModel>(this.apiUrl)
-      .subscribe((response) => {
-        this.products = response.data
-      });
+    this.productService.getProducts().subscribe(response => {
+      this.products = response.data
+      this.dataLoaded = true;
+    })
   }
 }
