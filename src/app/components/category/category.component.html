@@ -1,4 +1,12 @@
-<!--Burda ul içine neden koymadık çünkü ul=list o yüzden listeyi tekrar etmicez liste içindeki satırları tekrar edicez.-->
+<!--Burda ul içine neden koymadık çünkü ul=list o yüzden listeyi tekrar etmicez liste içindeki satırları tekrar edicez.
+tıklama özelliği vermek için (click) kodu yazmak gerekiyor ve bunu herşeye verebiliyoruz.
+Önce ngfor çalışır.-->
+<!--**********ÇOK ÖNEMLİ --- Eğer component'de (örn=category.component) yazdığımız method'a göre değiştirmek istiyor isek [] içine alıyoruz.
+burda örnek olarak category.component'de currentCategoryClass method'u hakkında bilgi yazdık onun işlemesi için class'ı burda []içine alıyoruz.
+**** RentaCar projesinde de img tagının src'sini de [src] şeklinde vermemiz gerekiyor ödevde. -->
 <ul class="list-group">
-    <li *ngFor="let category of categories" class="list-group-item" aria-current="true">{{category.categoryName}}</li>
+    <li (click)="setCurrentCategory(category)"  *ngFor="let category of categories" [class]="getCurrentCategoryClass(category)" aria-current="true">{{category.categoryName}}</li>
   </ul>
+
+<!--sadece <h5>{{currentCategory.categoryName}} seçtiniz.</h5> koyduğumuzda projede solda kategori ekranı ilk açılışta boş olucak tıkladığımızda seçebilme özelliği gelecek. Ama biz direk dolu hali ile gelsin istiyoruz. o sebeple *ngIf="currentCategory" ekliyoruz = bunun anlamı , currentCategory var ise yada anlamlı ise demek. -->
+<h5 *ngIf="currentCategory">{{currentCategory.categoryName}} seçtiniz.</h5>

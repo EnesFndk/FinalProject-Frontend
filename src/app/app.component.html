@@ -20,6 +20,8 @@ container = ortaladı navbarı.
 bir div ile çalıştığımız zaman o sayfayı kaplamaya çalışır
 ama bootstrap'te bir satırı 12 parçaya böldüğümüzü var sayıyor.12 eşit parçaya bölüyordu ya category'e 3 veriyoruz product'a 9 verdik 12 oldu. -->
 
+<!--Standart olmasını istediğimiz yerler category'deki gibi bir <div class="row"> koyup altına bir <div class="col-md-3"> koyup category yada product koyabiliriz
+  Standart olmayan yerler ise <router-outlet></router-outlet> olarak veriyoruz.-->
 <div class="container">
   <app-navi></app-navi>
   <div class="row">
@@ -27,8 +29,7 @@ ama bootstrap'te bir satırı 12 parçaya böldüğümüzü var sayıyor.12 eşi
       <app-category></app-category>
     </div>
     <div class="col-md-9">
-      <app-product></app-product>
+      <router-outlet></router-outlet>
     </div>
   </div>
-<router-outlet></router-outlet>
 </div>
