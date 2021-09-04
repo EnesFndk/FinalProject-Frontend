@@ -1,6 +1,7 @@
 //bu c# daki using microsoft.dependensy falan yazıyorduk ya ordakiyle aynı aslında.
 //HttpClient ile backend'e ulaşıyoruz.
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -26,12 +27,26 @@ export class ProductComponent implements OnInit {
   products: Product[] = [];
   dataLoaded = false;
 
-  constructor(private productService:ProductService) {}
+  //ActivatedRoute = Route aktif hale getiriyor. bu aktifroute ise http://localhost:4200/products/category/categoryId budur
+  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute) {}
 
   //javascript'de normalde void diye birşey yok bunu bize sağlayan typescript.
   //bir fonksiyonun dışındakine ulaşmak istediğimizde this yazıyoruz.
   ngOnInit(): void {
-    this.getProducts();
+    //Burdaki getProduct(); 'ı siliyoruz.
+    //params observable döndürdüğü için subscribe yapıyoruz.
+    //params =parametrelerim ve parametrelerim şuanlık 1 tane, app-routing.module içerisine yazdığımız {path:"products/category/:categoryId" içerisindeki categoryId bizim params'ımız. o sebeple onu ekliyoruz.
+    this.activatedRoute.params.subscribe(params => {
+      //eğer parametrelerimden categoryId var ise getProductsByCategory çalıştır.
+      if(params["categoryId"] ){
+        this.getProductsByCategory(params["categoryId"])
+      }
+      //yoksa getProducts'ı çalıştır .
+      else{
+        this.getProducts()
+      }
+    })
+    
   }
   //Subscribe olduğumuz zaman gelen response(product.service.ts'deki apiurl'den gelen ProductResponseModel tipi) için(=>) this.products eşittir response'dan gelen data. 
   //{}=başka kodlar da yazmak için
@@ -41,6 +56,13 @@ export class ProductComponent implements OnInit {
   //şimdi dataloaded yukarda false'ken aşağıda neden true, çünkü yüklendiği anda true yapıyorum.
   getProducts() {
     this.productService.getProducts().subscribe(response => {
+      this.products = response.data
+      this.dataLoaded = true;
+    })
+  }
+  //productservice'de yaptığımız getProductsByCategory component içerisine de ekliyoruz.
+  getProductsByCategory(categoryId:number) {
+    this.productService.getProductsByCategory(categoryId).subscribe(response => {
       this.products = response.data
       this.dataLoaded = true;
     })

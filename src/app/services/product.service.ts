@@ -9,7 +9,9 @@ import { Product } from '../models/product';
   providedIn: 'root'
 })
 export class ProductService {
-  apiUrl = 'http://localhost:45495/api/products/getall';
+  //bu zaten sabit adres olduğu için onu buraya yazdıktan sonra geri kalan url yi method içerisinde kullanıyoruz.
+  apiUrl = 'http://localhost:45495/api/';
+
   constructor(private httpClient: HttpClient) { }
 
   //ürünleri getirmek için httpclient.get yazıyoruz.
@@ -19,7 +21,16 @@ export class ProductService {
   //ÖZET = getProducts bir method. httpClient ile istek yapıyoruz. bir get isteği yapıyoruz apiUrl'ye. Gelen data ProductResponseModel tipinde olsun. 
   //Observable<ProductResponceModel> = subscribe olunabilir bir responsemodule döneceksin demek. o yüzden return de ekliyoruz.
   //Dönüş tipim observable çünkü get üstünde durunca observable yazıyor. Veri tipim ise ProductResponseModel
+  //let = bir fonksiyon içerisinde değişken tanımlamak için 
   getProducts():Observable<ListResponseModel<Product>>{
-    return this.httpClient.get<ListResponseModel<Product>>(this.apiUrl)
+    //yukarıdaki apiurl adresi bu şekilde tamamladık.
+    let newPath = this.apiUrl + "products/getall"
+    return this.httpClient.get<ListResponseModel<Product>>(newPath)
+  }
+  //category seçtiğimizde categoryId'lere göre listelenecek.
+  //adresi tamamladıktan sonra + categoryId değişkenlik göstereceği için yazdık.
+  getProductsByCategory(categoryId:number):Observable<ListResponseModel<Product>>{
+    let newPath = this.apiUrl + "products/getbycategory?categoryId="+categoryId
+    return this.httpClient.get<ListResponseModel<Product>>(newPath)
   }
 }

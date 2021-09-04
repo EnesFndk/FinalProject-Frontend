@@ -42,5 +42,14 @@ export class CategoryComponent implements OnInit {
       return "list-group-item"
     }
   }
-
+  getAllCategoryClass(){
+    //currentcategory yok ise return "list-group-item active" 
+      if(!this.currentCategory) {
+        return "list-group-item active"
+      }
+    //currentcategory var ise return "list-group-item" aslında getCurrentCategoryClass'ın tam tersi.
+     else{
+        return "list-group-item"
+      }
+  }
 }

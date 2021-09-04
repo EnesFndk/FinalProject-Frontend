@@ -3,10 +3,16 @@ tıklama özelliği vermek için (click) kodu yazmak gerekiyor ve bunu herşeye 
 Önce ngfor çalışır.-->
 <!--**********ÇOK ÖNEMLİ --- Eğer component'de (örn=category.component) yazdığımız method'a göre değiştirmek istiyor isek [] içine alıyoruz.
 burda örnek olarak category.component'de currentCategoryClass method'u hakkında bilgi yazdık onun işlemesi için class'ı burda []içine alıyoruz.
-**** RentaCar projesinde de img tagının src'sini de [src] şeklinde vermemiz gerekiyor ödevde. -->
+**** RentaCar projesinde de img tagının src'sini de [src] şeklinde vermemiz gerekiyor ödevde. 
+routuberLink= hangi router'a gideyim?angular ile gelen özellik. İlgili category'nin id'sini vermem için {{category.categoryId}} yazıyoruz routerLink içine -->
 <ul class="list-group">
-    <li (click)="setCurrentCategory(category)"  *ngFor="let category of categories" [class]="getCurrentCategoryClass(category)" aria-current="true">{{category.categoryName}}</li>
-  </ul>
+  <!--Bastığım zaman tüm ürünleri göstermesini istiyorum.
+  Burda click komutunuda eklememiz gerekiyor çünkü click event'i tüm ürünler'e tıkladığımızda bir önceki seçtiğimiz kategori öğesinin üstünde duruyor-->
+    <li [class]="getAllCategoryClass()" routerLink= "/products">Tüm ürünler</li>
+    <li (click)="setCurrentCategory(category)" routerLink= "/products/category/{{category.categoryId}}" *ngFor="let category of categories" [class]="getCurrentCategoryClass(category)" aria-current="true">{{category.categoryName}}</li>
+</ul>
 
 <!--sadece <h5>{{currentCategory.categoryName}} seçtiniz.</h5> koyduğumuzda projede solda kategori ekranı ilk açılışta boş olucak tıkladığımızda seçebilme özelliği gelecek. Ama biz direk dolu hali ile gelsin istiyoruz. o sebeple *ngIf="currentCategory" ekliyoruz = bunun anlamı , currentCategory var ise yada anlamlı ise demek. -->
 <h5 *ngIf="currentCategory">{{currentCategory.categoryName}} seçtiniz.</h5>
+
+<!-- npm install jquery dedikten sonra jquery yüklüyoruz daha sonra angular.json'da yazdığımız styles altındaki scripts'e "./node_modules/jquery/dist/jquery.min.js" ve "./node_modules/bootstrap/dist/js/bootstrap.min.js" yapıştırıyoruz.-->

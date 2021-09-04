@@ -11,7 +11,12 @@ import { ProductComponent } from './components/product/product.component';
 const routes: Routes = [
   {path:"", pathMatch:"full", component:ProductComponent},
   {path:"products" , component:ProductComponent},
-  {path:"categories" , component:CategoryComponent}
+  {path:"categories" , component:CategoryComponent},
+  //Burda category.component.html içinde routerLink= "/products/category/{{category.categoryId}}" çalışması için kod yazıyoruz peki ne bu?
+  //Component'in çalışması için bir link yazıyoruz ve :=parametre vermek için sonrasında sürekli değişen bir yapıdaki categoryId veriyoruz çünkü backend'den geliyor
+  //yani products/category/ sabit sonrası değişkenlik gösteriyor.
+  //****Ayrıca backend'de ProductController'da getbycategory yazıyoruz.
+  {path:"products/category/:categoryId" , component:ProductComponent}
 ];
 
 
