@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductResponceModel } from 'src/app/models/productResponseModel';
+import { ListResponseModel } from '../models/ListResponseModel';
+import { Product } from '../models/product';
 
 //böyle bir şey görürsek bu service diyebiliriz.
 @Injectable({
@@ -18,7 +19,7 @@ export class ProductService {
   //ÖZET = getProducts bir method. httpClient ile istek yapıyoruz. bir get isteği yapıyoruz apiUrl'ye. Gelen data ProductResponseModel tipinde olsun. 
   //Observable<ProductResponceModel> = subscribe olunabilir bir responsemodule döneceksin demek. o yüzden return de ekliyoruz.
   //Dönüş tipim observable çünkü get üstünde durunca observable yazıyor. Veri tipim ise ProductResponseModel
-  getProducts():Observable<ProductResponceModel> {
-    return this.httpClient.get<ProductResponceModel>(this.apiUrl)
+  getProducts():Observable<ListResponseModel<Product>>{
+    return this.httpClient.get<ListResponseModel<Product>>(this.apiUrl)
   }
 }
