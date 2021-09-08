@@ -5,6 +5,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
+//burda FormsModule import ediyoruz. pipe için. Aşağıda imports yapıcaz.
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +14,8 @@ import { AppComponent } from './app.component';
 import { ProductComponent } from './components/product/product.component';
 import { CategoryComponent } from './components/category/category.component';
 import { NaviComponent } from './components/navi/navi.component';
+import { VatAddedPipe } from './pipes/vat-added.pipe';
+import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 
 @NgModule({
   //Kendi ve daha sonra kullanacağımız directive'leri buraya koyuyoruz.
@@ -20,14 +24,18 @@ import { NaviComponent } from './components/navi/navi.component';
     //burda da eklemiş oluşturduğumuz componentleri görüyoruz.
     ProductComponent,
     CategoryComponent,
-    NaviComponent
+    NaviComponent,
+    VatAddedPipe,
+    FilterPipePipe
   ],
   //dışardan bizim yazmadığımız module'leri buraya koyuyoruz.
   //o sebeple HttpClientModule ekliyoruz.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    //burda da import ediyoruz.
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -26,6 +26,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductComponent implements OnInit {
   products: Product[] = [];
   dataLoaded = false;
+  filterText="";
 
   //ActivatedRoute = Route aktif hale getiriyor. bu aktifroute ise http://localhost:4200/products/category/categoryId budur
   constructor(private productService:ProductService, private activatedRoute:ActivatedRoute) {}

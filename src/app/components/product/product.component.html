@@ -4,6 +4,21 @@
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     Loading...
 </button>
+
+<!--Bunu boostrap'de form control'den aldık.
+burda filtre uygulayacağımız için id'sini filterText yaptıktan sonra product.component.ts de filterText'i tanımlıyoruz.Daha sonra [()] = two way binding deniyor. 
+hani biz angular için {{}} yazdığımızda bu one way binding = bu direk yazıyoruz ama [()] bu = çift yönlü çalışıyor burdaki input'dan değiştirsek component'deki filterText değişir, filterText'den değiştirirsek html'deki input'daki ngModel değişir. Açıkcası birbirinden etkilenir -->
+<div class="mb-3">
+    <label for="filterText" class="form-label">Ürün Ara</label>
+    <!--ngModel'ı bağlamak için app.module'de FormsModule import ediyoruz.-->
+    <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Arama ifadesi giriniz">
+  </div>
+  <!-- burdaki ngIf ile sadece arama yaptığımızda aradınız yazısı geliyor. .length>2 ise 2 tane harften sonra arama geliyor.-->
+<div *ngIf="filterText.length>2" class="alert alert-black">
+    {{filterText}} aradınız
+</div>
+
+
 <!-- button'u data yüklenmediyse gösteriyoruz ya o anda başlıklar gözükmesin istiyor isek  *ngIf="dataLoaded==true" yazıyoruz."-->
 <table *ngIf="dataLoaded==true" class="table"> 
     <thead>
@@ -12,15 +27,22 @@
             <th>Ürün Adı</th>
             <th>Kategori</th>
             <th>Fiyat</th>
+            <th>Kdv'li Fiyat</th>
             <th>Stok Adedi</th>
         </tr>
     </thead>
-    <!-- sanki bir döngü varmış gibi c#deki foreach gibi.-->
-    <tr *ngFor="let product of products">
+    <!-- sanki bir döngü varmış gibi c#deki foreach gibi.
+    Burda | ile pipe kullanıyoruz | uppercase bütün productName'leri büyük harfle yazdık her yerde kullanma. Birden fazla pipe ekleyebiliriz | vatAdded:18 | currency gibi.
+    Burda şimdi kdv'li fiyatı backend'den çekemeyiz çünkü backend'de yazmadık o sebeple pipe ile hesaplayıp yapıcaz. 
+    *** Parametre verirken : işaratini kullanıyoruz ve birden çok verebiliriz.
+    unitPrice içine vatAdded pipe'ını koyduk transform içinde değişiklikler yapıyoruz.
+    filtreyi listeye uygulayacağımız için buraya yazıyoruz. -->
+    <tr *ngFor="let product of products | filterPipe:filterText">
         <td>{{product.productId}}</td>
-        <td>{{product.productName}}</td>
+        <td>{{product.productName | uppercase}}</td>
         <td>{{product.categoryId}}</td>
-        <td>{{product.unitPrice}}</td>
+        <td>{{product.unitPrice | currency}}</td>
+        <td>{{product.unitPrice | vatAdded:18 | currency}}</td>
         <td>{{product.unitsInStock}}</td>
     </tr>
 </table>
