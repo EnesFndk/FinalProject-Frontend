@@ -7,6 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 //burda FormsModule import ediyoruz. pipe için. Aşağıda imports yapıcaz.
 import { FormsModule } from '@angular/forms';
+import { ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +18,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { VatAddedPipe } from './pipes/vat-added.pipe';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 
 @NgModule({
   //Kendi ve daha sonra kullanacağımız directive'leri buraya koyuyoruz.
@@ -26,7 +29,8 @@ import { FilterPipePipe } from './pipes/filter-pipe.pipe';
     CategoryComponent,
     NaviComponent,
     VatAddedPipe,
-    FilterPipePipe
+    FilterPipePipe,
+    CartSummaryComponent
   ],
   //dışardan bizim yazmadığımız module'leri buraya koyuyoruz.
   //o sebeple HttpClientModule ekliyoruz.
@@ -34,8 +38,12 @@ import { FilterPipePipe } from './pipes/filter-pipe.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    //burda da import ediyoruz.
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    //ekranın neresinde çıkmasını söylüyoruz. ngx-toastr sitesinde farklı kombinasyonlarda var.
+    ToastrModule.forRoot({
+      positionClass:"toast-bottom-right"
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

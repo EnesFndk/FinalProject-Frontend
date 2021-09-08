@@ -2,7 +2,9 @@
 //HttpClient ile backend'e ulaşıyoruz.
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 
@@ -29,7 +31,9 @@ export class ProductComponent implements OnInit {
   filterText="";
 
   //ActivatedRoute = Route aktif hale getiriyor. bu aktifroute ise http://localhost:4200/products/category/categoryId budur
-  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute) {}
+  //toastr'ı service olarak yazmışlar yazanlar o yüzden service olarak kullanıyoruz.
+  //oluşturduğumuz cartService burda enjecte ediyoruz.
+  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService, private cartService:CartService) {}
 
   //javascript'de normalde void diye birşey yok bunu bize sağlayan typescript.
   //bir fonksiyonun dışındakine ulaşmak istediğimizde this yazıyoruz.
@@ -67,5 +71,18 @@ export class ProductComponent implements OnInit {
       this.products = response.data
       this.dataLoaded = true;
     })
+  }
+  //Bi eticaret sitesinde ürünü sepete eklediğimizde sepet bilgisini veri tabanından alınıyor ki belirli bir süre sonra kullanıcı girdiğinde sepetindeki malzeme dursun diye.ufak bilgi
+
+  //npm install ngx-toastr yüklüyoruz bununla kullanıcılarımızı yönlendirebileceğim kullandığımız notifikasyon. angular.json'da styles altına "./node_modules/ngx-toastr/toastr.css", yazıyoruz. daha sonra app.module.ts 'de ToastrModule import ediyoruz.
+  //bir de npm install @angular/animations yüklüyoruz. app.module.ts'ye animation'u import ediyoruz.
+
+  //error olarak vermek istersek şöyle yapabiliriz. neden === yaptık. js de böyle yapmak daha mantıklı == yerine ===
+  //addToCart(product:Product){ if(product.productId===1){ this.toastrService.error("Hata","Bu ürün sepete eklenemez")} else{this.toastrService.success("Sepete eklendi", product.productName)}
+
+  addToCart(product:Product) {
+    this.toastrService.success("Sepete eklendi", product.productName)
+    //cartService yazdığımızdan artık rahatlıkla ekleyebiliriz.
+    this.cartService.addToCart(product);
   }
 }

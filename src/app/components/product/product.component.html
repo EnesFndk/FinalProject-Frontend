@@ -29,6 +29,7 @@ hani biz angular için {{}} yazdığımızda bu one way binding = bu direk yazı
             <th>Fiyat</th>
             <th>Kdv'li Fiyat</th>
             <th>Stok Adedi</th>
+            <th></th>
         </tr>
     </thead>
     <!-- sanki bir döngü varmış gibi c#deki foreach gibi.
@@ -37,6 +38,8 @@ hani biz angular için {{}} yazdığımızda bu one way binding = bu direk yazı
     *** Parametre verirken : işaratini kullanıyoruz ve birden çok verebiliriz.
     unitPrice içine vatAdded pipe'ını koyduk transform içinde değişiklikler yapıyoruz.
     filtreyi listeye uygulayacağımız için buraya yazıyoruz. -->
+    <!--** tbody eklediğimizde sepete ekle butonu ile birlikte daha güzel bir görsel elde ediyoruz.-->
+    <tbody>
     <tr *ngFor="let product of products | filterPipe:filterText">
         <td>{{product.productId}}</td>
         <td>{{product.productName | uppercase}}</td>
@@ -44,5 +47,8 @@ hani biz angular için {{}} yazdığımızda bu one way binding = bu direk yazı
         <td>{{product.unitPrice | currency}}</td>
         <td>{{product.unitPrice | vatAdded:18 | currency}}</td>
         <td>{{product.unitsInStock}}</td>
+        <!-- click butonu ile component'deki addToCart fonksiyonunu çalıştır demek.-->
+        <td><button (click)="addToCart(product)" class="btn btn-success">Sepete Ekle</button></td>
     </tr>
+    </tbody>
 </table>
