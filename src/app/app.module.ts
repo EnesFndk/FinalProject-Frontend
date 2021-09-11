@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 //burda FormsModule import ediyoruz. pipe için. Aşağıda imports yapıcaz.
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -19,6 +19,7 @@ import { NaviComponent } from './components/navi/navi.component';
 import { VatAddedPipe } from './pipes/vat-added.pipe';
 import { FilterPipePipe } from './pipes/filter-pipe.pipe';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { ProductAddComponent } from './components/product-add/product-add.component';
 
 @NgModule({
   //Kendi ve daha sonra kullanacağımız directive'leri buraya koyuyoruz.
@@ -30,7 +31,8 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
     NaviComponent,
     VatAddedPipe,
     FilterPipePipe,
-    CartSummaryComponent
+    CartSummaryComponent,
+    ProductAddComponent
   ],
   //dışardan bizim yazmadığımız module'leri buraya koyuyoruz.
   //o sebeple HttpClientModule ekliyoruz.
@@ -39,6 +41,7 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     //ekranın neresinde çıkmasını söylüyoruz. ngx-toastr sitesinde farklı kombinasyonlarda var.
     ToastrModule.forRoot({

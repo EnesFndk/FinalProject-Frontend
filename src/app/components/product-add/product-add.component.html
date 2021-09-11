@@ -1,0 +1,41 @@
+<!-- Amgularda inputların veri tipini type'ının ne olduğunu vermek gerekiyor yoksa hatayı burda alabiliriz. ona dikkat etmeliyiz.
+angular'ın önemsediği özellik formControlName, Yani angular ilişkilendirmeyi formControlName sayesinde yapıyor. 
+class="form-control" = bu product-add.component.ts deki formcontrol DEĞİL bu bootstrap ile geliyor. -->
+<div class="content">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header"><h5 class="title">Ürün ekle</h5></div>
+            <div class="card-body">
+                <form [formGroup]="productAddForm">
+                    <div class="mb-4">
+                        <label for="productName">Ürün adı</label>
+                        <div class="form-group">
+                            <input type="text" id="productName" formControlName="productName" class="form-control" placeholder="Ürün adı">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="categoryId">Kategori</label>
+                        <div class="form-group">
+                            <input type="number" id="categoryId" formControlName="productName" class="form-control" placeholder="Kategori">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="unitsInStock">Stok Adedi</label>
+                        <div class="form-group">
+                            <input type="number" id="unitsInStock" formControlName="productName" class="form-control" placeholder="Stok Adedi">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="unitPrice">Fiyatı</label>
+                        <div class="form-group">
+                            <input type="number" id="unitPrice" formControlName="productName" class="form-control" placeholder="Fiyatı">
+                        </div>
+                    </div>
+                </form>   
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-fill btn-dark">Ekle</button>
+            </div>
+        </div> 
+    </div>
+</div>

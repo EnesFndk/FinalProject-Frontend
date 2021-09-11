@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './components/category/category.component';
+import { ProductAddComponent } from './components/product-add/product-add.component';
 import { ProductComponent } from './components/product/product.component';
 
 //routes [] içine ne yazarsak app.component.html içindeki router-outlet içinde değişiklik gösterecektir.
@@ -16,7 +17,9 @@ const routes: Routes = [
   //Component'in çalışması için bir link yazıyoruz ve :=parametre vermek için sonrasında sürekli değişen bir yapıdaki categoryId veriyoruz çünkü backend'den geliyor
   //yani products/category/ sabit sonrası değişkenlik gösteriyor.
   //****Ayrıca backend'de ProductController'da getbycategory yazıyoruz.
-  {path:"products/category/:categoryId" , component:ProductComponent}
+  {path:"products/category/:categoryId" , component:ProductComponent},
+  //product-add için route ekliyoruz.
+  {path:"products/add", component:ProductAddComponent}
 ];
 
 
