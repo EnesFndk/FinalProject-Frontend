@@ -41,12 +41,16 @@ export class ProductAddComponent implements OnInit {
       let productModel = Object.assign({},this.productAddForm.value) 
       //add observable olduğu için subscribe olması gerekiyor. Düzensiz çalıştığı için bunu bir düzene oturtmak için toastrService.success'i subscribe içine koyuyoruz.
       this.productService.add(productModel).subscribe(response=> {
-        console.log(response)
         this.toastrService.success(response.message, "Başarılı")
       },responseError=> {
-        console.log(responseError)
-        //responseError.error = bizim http://localhost:4200/products/add 'de product eklediğimizde f12 ile aldığımız error.
-        this.toastrService.error(responseError.error)
+        //****burdaki Errors= backend'deki validationErrors.
+        if(responseError.error.Errors.length>0) {
+          //i 0'dan başlasın, i küçüktür responseError.error.Errors'dan.
+          for (let i = 0; i < responseError.error.Errors.length; i++) {
+            //responseError.error = bizim http://localhost:4200/products/add 'de product eklediğimizde f12 ile aldığımız error.
+            this.toastrService.error(responseError.error.Errors[i].ErrorMessage ,"Doğrulama hatası")
+          }
+        }
       })
     }
     else {
