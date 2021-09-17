@@ -38,6 +38,6 @@ export class ProductService {
   //this.apiUrl+"products/add" = hangi adrese , product = ne göndereyim diye özetleyebiliriz
   //product-add.component'de  toastr.success olunca response.message vermek istediğimiz için observable<ResponseModel> ekliyoruz.
   add(product:Product):Observable<ResponseModel>{
-    return this.httpClient.post<ResponseModel>(this.apiUrl+"products/add", product)
+    return this.httpClient.post<ResponseModel>(this.apiUrl+"products/add", product, )
   }
 }
