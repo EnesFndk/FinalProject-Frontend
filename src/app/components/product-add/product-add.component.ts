@@ -30,6 +30,7 @@ export class ProductAddComponent implements OnInit {
       categoryId:["",Validators.required]
     })
   }
+  
 
   //value diye özellik var productaddForm'un , productaddForm'daki productName,unitPrice ve diğerlerinin karşılığını verir. Bir obje şeklinde çalışır. 
   //biz bunu product haline getirmek için let productModel yazıyoruz. Şimdi bunu nasıl productAddForm'a atamak için ise js içinde Object.assign({}) diyerek ekleyebiliyoruz.
