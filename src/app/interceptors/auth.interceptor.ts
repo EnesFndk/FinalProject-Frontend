@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 //bu yapı bize token'ıda içine atarak paket yollucak ve yetkilendirme işlemini tek tek yapmaktansa angular ile bu yapıda sadece 1 kez yazıp burdan yönlendirme yapacağız.
 //backend'de errormiddleware yazdık ya onu buraya da yazabiliriz. Hata yakalamayı buraya da yazıp burdan yönetebiliriz.
+//app.module.ts'ye providers içine interceptors yazıyoruz.
+//**** BURDA OZET OLARAK LOGIN OLMADAN URUN EKLEME ISLEMI YAPAMADIK.BACKEND'DE YETKILENDIRME YAPMISTIK ZATEN O YETKILENDIRME ILE GIRIS YAPTIKTAN SONRA URUN EKLEME ISLEMI GERCEKLESTIRDIK.
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor() {}

@@ -4,6 +4,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductAddComponent } from './components/product-add/product-add.component';
 import { ProductComponent } from './components/product/product.component';
+import { LoginGuard } from './guards/login.guard';
 
 //routes [] içine ne yazarsak app.component.html içindeki router-outlet içinde değişiklik gösterecektir.
 //path = ana sayfada birşey verilmez ise ne olsun bizde hiç bir şey yazılmazsa product component olsun diyoruz.
@@ -20,7 +21,8 @@ const routes: Routes = [
   //****Ayrıca backend'de ProductController'da getbycategory yazıyoruz.
   {path:"products/category/:categoryId" , component:ProductComponent},
   //product-add için route ekliyoruz.
-  {path:"products/add", component:ProductAddComponent},
+  //burda canActivate array olduğu için birden çok guard ekleyebiliyoruz.
+  {path:"products/add", component:ProductAddComponent, canActivate:[LoginGuard]},
   {path:"login", component:LoginComponent}
 ];
 
